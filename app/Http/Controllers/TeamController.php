@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Team;
 
 class TeamController extends Controller
 {
@@ -20,13 +21,13 @@ class TeamController extends Controller
         return back()->with('success', 'Équipe ajoutée avec succès.');
     }
 
-
     public function destroy($id)
     {
         $team = Team::findOrFail($id);
+        $conferenceId = $team->conference_id;
         $team->delete();
 
-        return back()->with('success', 'Équipe supprimée.');
+        return redirect()->route('conferences.show', $conferenceId)->with('success', 'Équipe supprimée.');
     }
 
     public function show($id)

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\TeamController;
@@ -11,27 +10,21 @@ use App\Http\Controllers\PlayerController;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| Ici sont définies toutes les routes web de ton application.
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Page d'accueil : liste des conférences
 Route::get('/', [ConferenceController::class, 'index'])->name('conferences.index');
+
+// Voir une conférence et ses équipes
 Route::get('/conference/{id}', [ConferenceController::class, 'show'])->name('conferences.show');
 
-Route::post('/conference/{id}team', [TeamController::class, 'store'])->name('Teams.store');
+// Équipes
+Route::post('/conference/{id}/teams', [TeamController::class, 'store'])->name('teams.store'); // Ajouter une équipe
+Route::delete('/teams/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');     // Supprimer une équipe
+Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');              // Voir une équipe (optionnel)
 
-Route::delete('team/{id}', [TeamController::class, 'delete'])->name('teams.delete');
-Route::get('team/{id}', [TeamController::class, 'show'])->name('teams.show');
-
-Route::post('team/{id}/player', [PlayerController::class, 'store'])->name('players.store');
-
-
-
-
-
+// Joueurs
+Route::post('/teams/{id}/players', [PlayerController::class, 'store'])->name('players.store'); // Ajouter un joueur
+Route::delete('/players/{id}', [PlayerController::class, 'destroy'])->name('players.destroy'); // Supprimer un joueur (optionnel)
