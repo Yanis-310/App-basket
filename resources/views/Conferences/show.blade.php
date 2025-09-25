@@ -25,6 +25,13 @@
             <ul>
                 @foreach($team->players as $player)
                     <li>{{ $player->name }} ({{ $player->position ?? 'N/A' }})</li>
+                    <form action="{{ route('players.destroy', $player->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Supprimer ce joueur ?')">
+                            Supprimer
+                        </button>
+                    </form>
                 @endforeach
             </ul>
         @endif
