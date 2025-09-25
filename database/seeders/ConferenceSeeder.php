@@ -3,15 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Conference;
 
 class ConferenceSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        DB::table('conferences')->insert([
-            ['name' => 'Est', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Ouest', 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        Conference::create(['name' => 'Conférence Est']);
+        Conference::create(['name' => 'Conférence Ouest']);
     }
 }
