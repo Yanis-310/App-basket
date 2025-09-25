@@ -19,3 +19,14 @@ use App\Http\Controllers\PlayerController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', [ConferenceController::class, 'index'])->name('conferences.index');
+Route::get('/conference/{id}', [ConferenceController::class, 'show'])->name('conferences.show');
+
+Route::post('/conference/{id}team', [TeamController::class, 'store'])->name('Teams.store');
+
+Route::delete('team/{id}', [PokemonController::class, 'delete'])->name('teams.delete');
+Route::get('team/{id}', [TeamController::class, 'show'])->name('show');
+Route::post('team/{id}/player', [PlayerController::class, 'store'])->name('store');
+
+
