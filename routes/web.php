@@ -26,8 +26,10 @@ Route::get('/conference/{id}', [ConferenceController::class, 'show'])->name('con
 
 Route::post('/conference/{id}team', [TeamController::class, 'store'])->name('Teams.store');
 
-Route::delete('team/{id}', [PokemonController::class, 'delete'])->name('teams.delete');
-Route::get('team/{id}', [TeamController::class, 'show'])->name('show');
-Route::post('team/{id}/player', [PlayerController::class, 'store'])->name('store');
+Route::delete('team/{id}', [TeamController::class, 'delete'])->name('teams.delete');
+Route::get('team/{id}', [TeamController::class, 'show'])->name('teams.show');
+
+Route::post('team/{id}/player', [PlayerController::class, 'store'])->name('players.store');
+
 
 
