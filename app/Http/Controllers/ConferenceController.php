@@ -9,7 +9,7 @@ class ConferenceController extends Controller
 {
     public function index()
     {
-        $conference = Conference::all();
+        $conferences = Conference::all();
         return view("conferences.index", compact("conferences"));
     }
     public function show($id)
