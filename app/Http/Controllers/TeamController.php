@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    // Ajouter une équipe
     public function store(Request $request, $conferenceId)
     {
         $request->validate([
@@ -21,7 +20,7 @@ class TeamController extends Controller
         return back()->with('success', 'Équipe ajoutée avec succès.');
     }
 
-    // Supprimer une équipe
+
     public function destroy($id)
     {
         $team = Team::findOrFail($id);
@@ -30,7 +29,6 @@ class TeamController extends Controller
         return back()->with('success', 'Équipe supprimée.');
     }
 
-    // Affiche une équipe avec ses joueurs
     public function show($id)
     {
         $team = Team::with('players')->findOrFail($id);
