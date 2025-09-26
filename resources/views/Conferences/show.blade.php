@@ -2,7 +2,13 @@
 
 @php
     $name = strtolower($conference->name ?? '');
-    $isEast = preg_match('/\b(east|eastern|est)\b/i', $name);
+    if (preg_match('/\b(west|western|ouest)\b/i', $name)) {
+        $isEast = false;
+    } elseif (preg_match('/\b(east|eastern|est)\b/i', $name)) {
+        $isEast = true;
+    } else {
+        $isEast = true;
+    }
 @endphp
 
 <div class="conference {{ $isEast ? 'conference-east' : 'conference-west' }}">
@@ -17,10 +23,8 @@
     <form action="{{ route('teams.store', $conference->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="name" placeholder="Nom de l'équipe" required>
-
-        <label for="logo-upload" class="custom-file-upload">Choisir un logo</label>
-        <input id="logo-upload" type="file" name="logo" accept="image/*">
-
+        <input type="file" name="logo" id="logo">
+        <label for="logo" class="file-label">Choisir un logo</label>
         <button type="submit">Ajouter</button>
     </form>
 
@@ -36,7 +40,7 @@
             <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit" onclick="return confirm('Supprimer cette équipe ?')">Supprimer l'équipe</button>
+                <button type="submit" class="delete-btn" onclick="return confirm('Supprimer cette équipe ?')">Supprimer l'équipe</button>
             </form>
 
             <h3>Joueurs</h3>
@@ -50,7 +54,7 @@
                             <form action="{{ route('players.destroy', $player->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</button>
+                                <button type="submit" class="delete-btn" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</button>
                             </form>
                         </li>
                     @endforeach

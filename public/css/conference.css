@@ -43,27 +43,13 @@ form {
 }
 
 input[type="text"],
-textarea,
-.custom-file-upload {
+textarea {
     padding: 12px 14px;
     border: 1px solid #d1d1d6;
     border-radius: 10px;
     font-size: 1rem;
     outline: none;
     transition: border 0.2s;
-    text-align: left;
-    cursor: pointer;
-    background: #fff;
-    color: #555;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload:hover {
-    border-color: #0077c8;
-    color: #111;
 }
 
 button {
@@ -74,7 +60,14 @@ button {
     cursor: pointer;
     font-weight: 600;
     color: white;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button.delete-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    font-weight: 500;
 }
 
 .conference-east h2 { color: #0077c8; }
@@ -84,7 +77,6 @@ button {
     background: linear-gradient(180deg, #0a84ff 0%, #0077c8 100%);
 }
 .conference-east button:hover {
-    background: linear-gradient(180deg, #005bb5 0%, #004080 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0, 119, 200, 0.3);
 }
@@ -93,7 +85,6 @@ button {
     background: linear-gradient(180deg, #e53935 0%, #c8102e 100%);
 }
 .conference-west button:hover {
-    background: linear-gradient(180deg, #b71c1c 0%, #7f0000 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(200,16,46,0.35);
 }
@@ -121,3 +112,36 @@ section h2 a {
     transition: color 0.2s;
 }
 section h2 a:hover { color: inherit; }
+
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+    width: auto;       
+    align-self: flex-start; 
+}
+
+.conference-east .file-label {
+    background: linear-gradient(180deg, #0a84ff 0%, #0077c8 100%);
+}
+.conference-east .file-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 119, 200, 0.3);
+}
+
+.conference-west .file-label {
+    background: linear-gradient(180deg, #e53935 0%, #c8102e 100%);
+}
+.conference-west .file-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200,16,46,0.35);
+}
