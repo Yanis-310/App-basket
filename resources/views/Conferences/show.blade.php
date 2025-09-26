@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/conference.css') }}">
 
+
 @php
     $name = strtolower($conference->name ?? '');
     if (preg_match('/\b(west|western|ouest)\b/i', $name)) {
@@ -12,12 +13,10 @@
 @endphp
 
 <div class="conference {{ $isEast ? 'conference-east' : 'conference-west' }}">
-    <img 
-        src="{{ $isEast 
-            ? 'https://upload.wikimedia.org/wikipedia/commons/9/96/Eastern_Conference_%28NBA%29_logo_2018.png' 
-            : 'https://upload.wikimedia.org/wikipedia/commons/4/45/Western_Conference_%28NBA%29_logo_2018.png' }}" 
-        alt="Logo Conférence {{ $conference->name }}" 
-        class="header-logo">
+    <img src="{{ $isEast
+    ? 'https://upload.wikimedia.org/wikipedia/commons/9/96/Eastern_Conference_%28NBA%29_logo_2018.png'
+    : 'https://upload.wikimedia.org/wikipedia/commons/4/45/Western_Conference_%28NBA%29_logo_2018.png' }}"
+        alt="Logo Conférence {{ $conference->name }}" class="header-logo">
 
     <h2>Ajouter une nouvelle équipe</h2>
     <form action="{{ route('teams.store', $conference->id) }}" method="POST" enctype="multipart/form-data">
@@ -32,7 +31,8 @@
         <section>
             <h2>
                 @if($team->logo)
-                    <img src="{{ asset('storage/' . $team->logo) }}" alt="Logo {{ $team->name }}" style="height:50px; vertical-align:middle; margin-right:10px;">
+                    <img src="{{ asset('storage/' . $team->logo) }}" alt="Logo {{ $team->name }}"
+                        style="height:50px; vertical-align:middle; margin-right:10px;">
                 @endif
                 <a href="{{ route('teams.show', $team->id) }}">{{ $team->name }}</a>
             </h2>
@@ -40,7 +40,8 @@
             <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="delete-btn" onclick="return confirm('Supprimer cette équipe ?')">Supprimer l'équipe</button>
+                <button type="submit" class="delete-btn" onclick="return confirm('Supprimer cette équipe ?')">Supprimer
+                    l'équipe</button>
             </form>
 
             <h3>Joueurs</h3>
@@ -54,7 +55,8 @@
                             <form action="{{ route('players.destroy', $player->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="delete-btn" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</button>
+                                <button type="submit" class="delete-btn"
+                                    onclick="return confirm('Supprimer ce joueur ?')">Supprimer</button>
                             </form>
                         </li>
                     @endforeach

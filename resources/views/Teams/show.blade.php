@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('css/team.css') }}">
 <h1>Équipe : {{ $team->name }}</h1>
 
 <h2>Histoire de l'équipe</h2>
