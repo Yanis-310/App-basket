@@ -10,20 +10,19 @@ class TeamController extends Controller
 {
     public function store(Request $request, $conferenceId)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'history' => 'nullable|string',
         ]);
 
         $logoPath = null;
-
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('logos', 'public');
         }
 
         Team::create([
-            'name' => $request->name,
+            'name' => $validated['name'],
             'conference_id' => $conferenceId,
             'history' => $validated['history'] ?? null,
             'logo' => $logoPath,
@@ -36,7 +35,6 @@ class TeamController extends Controller
     {
         $team = Team::findOrFail($id);
 
-        // Supprimer aussi le logo si présent
         if ($team->logo && Storage::disk('public')->exists($team->logo)) {
             Storage::disk('public')->delete($team->logo);
         }

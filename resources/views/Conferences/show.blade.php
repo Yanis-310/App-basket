@@ -2,15 +2,7 @@
 
 @php
     $name = strtolower($conference->name ?? '');
-    // On recherche d'abord "west"/"western"/"ouest" (pour éviter que "est" matche "west")
-    if (preg_match('/\b(west|western|ouest)\b/i', $name)) {
-        $isEast = false;
-    } elseif (preg_match('/\b(east|eastern|est)\b/i', $name)) {
-        $isEast = true;
-    } else {
-        // fallback (si nom inattendu) : on considère que c'est East par défaut — ajuste si tu préfères West
-        $isEast = true;
-    }
+    $isEast = preg_match('/\b(east|eastern|est)\b/i', $name);
 @endphp
 
 <div class="conference {{ $isEast ? 'conference-east' : 'conference-west' }}">
@@ -22,15 +14,24 @@
         class="header-logo">
 
     <h2>Ajouter une nouvelle équipe</h2>
-    <form action="{{ route('teams.store', $conference->id) }}" method="POST">
+    <form action="{{ route('teams.store', $conference->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="name" placeholder="Nom de l'équipe" required>
+
+        <label for="logo-upload" class="custom-file-upload">Choisir un logo</label>
+        <input id="logo-upload" type="file" name="logo" accept="image/*">
+
         <button type="submit">Ajouter</button>
     </form>
 
     @foreach($conference->teams as $team)
         <section>
-            <h2><a href="{{ route('teams.show', $team->id) }}">{{ $team->name }}</a></h2>
+            <h2>
+                @if($team->logo)
+                    <img src="{{ asset('storage/' . $team->logo) }}" alt="Logo {{ $team->name }}" style="height:50px; vertical-align:middle; margin-right:10px;">
+                @endif
+                <a href="{{ route('teams.show', $team->id) }}">{{ $team->name }}</a>
+            </h2>
 
             <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline;">
                 @csrf

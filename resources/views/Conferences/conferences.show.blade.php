@@ -2,13 +2,7 @@
 
 @php
     $name = strtolower($conference->name ?? '');
-    if (preg_match('/\b(west|western|ouest)\b/i', $name)) {
-        $isEast = false;
-    } elseif (preg_match('/\b(east|eastern|est)\b/i', $name)) {
-        $isEast = true;
-    } else {
-        $isEast = true; // fallback
-    }
+    $isEast = preg_match('/\b(east|eastern|est)\b/i', $name);
 @endphp
 
 <div class="conference {{ $isEast ? 'conference-east' : 'conference-west' }}">
@@ -23,6 +17,9 @@
     <ul>
         @foreach($conference->teams as $team)
             <li>
+                @if($team->logo)
+                    <img src="{{ asset('storage/' . $team->logo) }}" alt="Logo {{ $team->name }}" style="height:40px; vertical-align:middle; margin-right:8px;">
+                @endif
                 <a href="{{ route('teams.show', $team->id) }}">{{ $team->name }}</a>
                 ({{ $team->wins }} victoires / {{ $team->losses }} défaites)
                 <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline">
@@ -35,11 +32,14 @@
     </ul>
 
     <h2>Ajouter une nouvelle équipe</h2>
-    <form action="{{ route('teams.store', $conference->id) }}" method="POST">
+    <form action="{{ route('teams.store', $conference->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="name" placeholder="Nom de l'équipe" required>
-        <label for="history">Histoire de l'équipe :</label>
         <textarea name="history" placeholder="Écrivez l'histoire de l'équipe ici..." rows="4"></textarea>
+
+        <label for="logo-upload" class="custom-file-upload">Choisir un logo</label>
+        <input id="logo-upload" type="file" name="logo" accept="image/*">
+
         <button type="submit">Ajouter</button>
     </form>
 </div>

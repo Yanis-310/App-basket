@@ -11,15 +11,13 @@ class Team extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'conference_id', 'wins', 'losses', 'history'];
+    protected $fillable = ['name', 'conference_id', 'wins', 'losses', 'history', 'logo'];
 
-    // Relation inverse : une équipe appartient à une conférence
     public function conference()
     {
         return $this->belongsTo(Conference::class);
     }
 
-    // Optionnel : joueurs
     public function players()
     {
         return $this->hasMany(Player::class);
