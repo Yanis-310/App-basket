@@ -18,21 +18,29 @@ body {
 .header-logo {
     width: 200px;
     height: auto;
-    margin: 0 auto 32px;
+    margin: 0 auto 24px;
     display: block;
     filter: drop-shadow(0 0 6px rgba(0,0,0,0.2));
+}
+
+.header-separator {
+    border-top: 1px solid #e5e5ea;
+    margin: 20px auto 30px;
+    max-width: 800px;
 }
 
 h2 {
     font-size: 2rem;
     font-weight: 500;
     margin: 32px 0 16px;
+    color: #1d1d1f;
 }
 
 h3 {
     font-size: 1.4rem;
     margin: 16px 0 12px;
     font-weight: 500;
+    color: #1d1d1f;
 }
 
 form {
@@ -70,8 +78,8 @@ button.delete-btn {
     font-weight: 500;
 }
 
-.conference-east h2 { color: #0077c8; }
-.conference-west h2 { color: #c8102e; }
+.conference-east h2 { color: #1d1d1f; }
+.conference-west h2 { color: #1d1d1f; }
 
 .conference-east button {
     background: linear-gradient(180deg, #0a84ff 0%, #0077c8 100%);
@@ -126,8 +134,8 @@ input[type="file"] {
     font-weight: 500;
     text-align: center;
     color: white;
-    width: auto;       
-    align-self: flex-start; 
+    width: auto;
+    align-self: flex-start;
 }
 
 .conference-east .file-label {
