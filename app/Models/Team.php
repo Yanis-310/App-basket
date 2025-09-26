@@ -11,7 +11,7 @@ class Team extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'conference_id', 'wins', 'losses'];
+    protected $fillable = ['name', 'conference_id', 'wins', 'losses', 'history'];
 
     // Relation inverse : une équipe appartient à une conférence
     public function conference()

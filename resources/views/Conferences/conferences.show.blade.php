@@ -14,10 +14,13 @@
         </li>
     @endforeach
 </ul>
-
-<h3>Ajouter une équipe</h3>
+<h2>Ajouter une nouvelle équipe</h2>
 <form action="{{ route('teams.store', $conference->id) }}" method="POST">
     @csrf
     <input type="text" name="name" placeholder="Nom de l'équipe" required>
+
+    <label for="history">Histoire de l'équipe :</label>
+    <textarea name="history" placeholder="Écrivez l'histoire de l'équipe ici..." rows="4"></textarea>
+
     <button type="submit">Ajouter</button>
 </form>

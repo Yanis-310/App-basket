@@ -9,7 +9,10 @@
 
 @foreach($conference->teams as $team)
     <section style="border:1px solid #ccc; padding:10px; margin-bottom:20px;">
-        <h2>{{ $team->name }}</h2>
+        <h2>
+            <a href="{{ route('teams.show', $team->id) }}">{{ $team->name }}</a>
+        </h2>
+
 
         <!-- Supprimer l'équipe -->
         <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline;">
@@ -24,14 +27,18 @@
         @else
             <ul>
                 @foreach($team->players as $player)
-                    <li>{{ $player->name }} ({{ $player->position ?? 'N/A' }})</li>
-                    <form action="{{ route('players.destroy', $player->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Supprimer ce joueur ?')">
-                            Supprimer
-                        </button>
-                    </form>
+                    <li>
+                        {{ $player->name }} ({{ $player->position ?? 'N/A' }})
+
+                        <!-- Bouton supprimer -->
+                        <form action="{{ route('players.destroy', $player->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Supprimer ce joueur ?')">
+                                Supprimer
+                            </button>
+                        </form>
+                    </li>
                 @endforeach
             </ul>
         @endif
